@@ -1,0 +1,37 @@
+<div class="container">
+  <h2 class="row justify-content-md-center">Please login</h2>
+  <form class="row justify-content-md-center">
+    <div class="col col-lg-3">
+      <div class="input mb-3">
+        <label>Username:</label>
+        <input
+          class="form-control mb-2 {{ checkUserNameError ? 'notError' : '' }}"
+          type="text"
+          name="usernameInput"
+          [(ngModel)]="usernameInput"
+        />
+        <span *ngIf="checkUserNameError">Username is required</span>
+      </div>
+      <div class="input mb-3">
+        <label>E-mail:</label>
+        <input
+          class="form-control mb-2 {{ checkMailError ? 'error' : '' }}"
+          type="email"
+          name="emailInput"
+          [(ngModel)]="emailInput"
+        />
+
+        <span *ngIf="checkMailError">E-mail is required</span>
+      </div>
+      <div class="input">
+        <input
+          type="submit"
+          value="Login"
+          class="submitButton"
+          (click)="loginUser()"
+        />
+      </div>
+      <span style="color: red" *ngIf="checkError">Wrong credentials</span>
+    </div>
+  </form>
+</div>

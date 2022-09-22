@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.done {
+  text-decoration: line-through;
+}
+tr.specialTR {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+}
+tr.specialTR * {
+  display: inline-grid;
+}
+.specialTable {
+  width: 100%;
+}
+.todosNumber {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 70%;
+  margin: 20px auto;
+}
+.todosNumber button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.input span {
+  color: red;
+}
+
+.submitButton {
+  color: white;
+  background-color: #0d6efd;
+  padding: 6px 24px;
+  border-radius: 10px;
+  border: navajowhite;
+  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.5);
+}
