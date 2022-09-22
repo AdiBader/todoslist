@@ -24,7 +24,7 @@ export class TodosPageComponent implements OnInit {
   }
 
   setTodos(): void {
-    fetch('http://jsonplaceholder.typicode.com/todos')
+    fetch('https://jsonplaceholder.typicode.com/todos')
       .then((data) => data.json())
       .then((res) =>
         res.forEach((element: any) => {

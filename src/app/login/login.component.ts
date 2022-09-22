@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.checkUserNameError = false;
     }
 
-    fetch('http://jsonplaceholder.typicode.com/users')
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then((data) => data.json())
       .then((res) => {
         res.forEach((element: any) => {
