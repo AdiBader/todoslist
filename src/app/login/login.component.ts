@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Users } from '../Users';
 import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+  FormArray,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,58 +15,58 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  usernameInput: string;
-  emailInput: string;
   users: Users[] = [];
   loogedIn: boolean;
   checkError: boolean;
-  checkMailError: boolean;
-  checkUserNameError: boolean;
+  loginForm: FormGroup;
+  userDisplay: string;
 
   constructor(private route: Router) {
     this.loogedIn = false;
-    this.checkError = false;
-    this.checkMailError = false;
-    this.checkUserNameError = false;
+
+    this.loginForm = new FormGroup({
+      emailInput: new FormControl('', [Validators.required, Validators.email]),
+      usernameInput: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+    });
+    console.log(this.loginForm);
   }
 
   ngOnInit(): void {}
 
   loginUser() {
-    if (this.emailInput === undefined || this.emailInput === '') {
-      this.checkMailError = true;
-    } else {
-      this.checkMailError = false;
-    }
-    if (this.usernameInput === undefined || this.usernameInput === '') {
-      this.checkUserNameError = true;
-    } else {
-      this.checkUserNameError = false;
-    }
-
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((data) => data.json())
       .then((res) => {
         res.forEach((element: any) => {
           this.users.push(element);
         });
-
+        const userName = String(
+          this.loginForm.value.usernameInput
+        ).toLowerCase();
+        const eMail = String(this.loginForm.value.emailInput).toLowerCase();
         this.users.forEach((user: any) => {
-          const userName = String(this.usernameInput).toLowerCase();
-          const eMail = String(this.emailInput).toLowerCase();
           if (
             userName === user.username.toLowerCase() &&
             eMail === user.email.toLowerCase()
           ) {
             console.log('welcome');
             this.loogedIn = true;
+            this.userDisplay = user.username;
+
             this.route.navigate(['/todos-page'], {
-              state: { data: this.loogedIn },
+              state: { data: this.loogedIn, userdisplay: this.userDisplay },
             });
           } else {
             this.checkError = true;
           }
         });
       });
+
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+    }
   }
 }

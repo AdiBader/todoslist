@@ -14,8 +14,10 @@ export class TodosPageComponent implements OnInit {
   newTodo: string;
   num: number = 10;
   loogedIn: boolean;
+  userDisplay: string;
 
   constructor(private route: Router) {
+    this.userDisplay = history.state.userdisplay;
     this.loogedIn = history.state.data;
     if (this.loogedIn !== true) {
       this.route.navigate(['/login']);
@@ -32,7 +34,7 @@ export class TodosPageComponent implements OnInit {
         })
       );
   }
-  todosNum(number = 5) {
+  todosNum(number: number) {
     this.num = number;
   }
 

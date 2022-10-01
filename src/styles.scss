@@ -40,8 +40,11 @@ tr.specialTR * {
   background-color: #0d6efd;
   padding: 6px 24px;
   border-radius: 10px;
-  border: navajowhite;
+  border: none;
   box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.5);
+}
+input.submitButton:hover {
+  background-color: #334488;
 }
 h2.login {
   display: block;

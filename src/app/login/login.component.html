@@ -1,35 +1,93 @@
 <div class="container">
   <h2 class="login row justify-content-md-center">Please login</h2>
-  <form class="row justify-content-md-center">
+  <form
+    class="row justify-content-md-center"
+    [formGroup]="loginForm"
+    (ngSubmit)="loginUser()"
+    novalidate
+  >
     <div class="col col-lg-3">
       <div class="input mb-3">
         <label>Username:</label>
         <input
-          class="form-control mb-2 {{ checkUserNameError ? 'notError' : '' }}"
+          class="form-control mb-2 {{
+            loginForm.controls['usernameInput'].touched &&
+            loginForm.controls['usernameInput'].errors
+              ? 'fError'
+              : ''
+          }}"
           type="text"
           name="usernameInput"
-          [(ngModel)]="usernameInput"
+          formControlName="usernameInput"
         />
-        <span *ngIf="checkUserNameError">Username is required</span>
+        <small
+          class="form-text text-muted"
+          *ngIf="
+            loginForm.controls['usernameInput'].touched &&
+            loginForm.controls['usernameInput'].errors?.['required']
+          "
+        >
+          Please enter username!
+        </small>
+
+        <small
+          class="form-text text-muted"
+          *ngIf="
+            loginForm.controls['usernameInput'].touched &&
+            loginForm.controls['usernameInput']['errors']?.['minlength']?.['actualLength'] > 0
+          "
+        >
+          Usernane is not well formed.!
+        </small>
       </div>
       <div class="input mb-3">
         <label>E-mail:</label>
         <input
-          class="form-control mb-2 {{ checkMailError ? 'error' : '' }}"
+          class="form-control mb-2 {{
+            loginForm.controls['emailInput'].touched &&
+            loginForm.controls['emailInput'].errors
+              ? 'fError'
+              : ''
+          }}"
           type="email"
           name="emailInput"
-          [(ngModel)]="emailInput"
+          formControlName="emailInput"
         />
 
-        <span *ngIf="checkMailError">E-mail is required</span>
+        <small
+          class="form-text text-muted"
+          *ngIf="
+          loginForm.controls['emailInput'].touched &&
+          loginForm.controls['emailInput'].errors?.['required']
+        "
+        >
+          Please enter email address.!
+        </small>
+
+        <small
+          class="form-text text-muted"
+          *ngIf="
+          loginForm.controls['emailInput'].touched &&
+          loginForm.controls['emailInput'].errors?.['email']
+        "
+        >
+          Email address not well formed.!
+        </small>
       </div>
       <div class="input">
-        <input
+        <button
           type="submit"
           value="Login"
-          class="submitButton"
           (click)="loginUser()"
-        />
+          class="submitButton {{
+            this.loginForm.controls['emailInput'].errors ||
+            this.loginForm.controls['usernameInput'].errors
+              ? 'disabled'
+              : ''
+          }}"
+        >
+          Log in
+        </button>
       </div>
       <span style="color: red" *ngIf="checkError">Wrong credentials</span>
     </div>

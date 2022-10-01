@@ -1,4 +1,4 @@
-<h2 style="text-align: center">Todo List</h2>
+<h2 style="text-align: center">{{ "Hello " + userDisplay + "!" }}</h2>
 <br />
 <div class="container">
   <div class="row justify-content-md-center">
@@ -37,12 +37,13 @@
                 <tr class="specialTR">
                   <th scope="row">{{ i + 1 }}</th>
                   <td
-                    class="{{ !todo.completed ? 'done' : '' }}"
+                    class=" todoTitle {{ !todo.completed ? 'done' : '' }}"
                     (click)="done(i)"
                   >
                     {{ todo.title }}
                   </td>
                   <td
+                    class="remove"
                     style="color: #555; font-weight: bold"
                     (click)="remove(i)"
                   >
