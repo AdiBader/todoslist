@@ -11,7 +11,7 @@
         <label>Username:</label>
         <input
           class="form-control mb-2 {{
-            loginForm.controls['usernameInput'].touched &&
+            loginForm.controls['usernameInput'].dirty &&
             loginForm.controls['usernameInput'].errors
               ? 'fError'
               : ''
@@ -23,7 +23,7 @@
         <small
           class="form-text text-muted"
           *ngIf="
-            loginForm.controls['usernameInput'].touched &&
+            loginForm.controls['usernameInput'].dirty &&
             loginForm.controls['usernameInput'].errors?.['required']
           "
         >
@@ -33,7 +33,7 @@
         <small
           class="form-text text-muted"
           *ngIf="
-            loginForm.controls['usernameInput'].touched &&
+            loginForm.controls['usernameInput'].dirty &&
             loginForm.controls['usernameInput']['errors']?.['minlength']?.['actualLength'] > 0
           "
         >
@@ -44,7 +44,7 @@
         <label>E-mail:</label>
         <input
           class="form-control mb-2 {{
-            loginForm.controls['emailInput'].touched &&
+            loginForm.controls['emailInput'].dirty &&
             loginForm.controls['emailInput'].errors
               ? 'fError'
               : ''
@@ -57,7 +57,7 @@
         <small
           class="form-text text-muted"
           *ngIf="
-          loginForm.controls['emailInput'].touched &&
+          loginForm.controls['emailInput'].dirty &&
           loginForm.controls['emailInput'].errors?.['required']
         "
         >
@@ -67,7 +67,7 @@
         <small
           class="form-text text-muted"
           *ngIf="
-          loginForm.controls['emailInput'].touched &&
+          loginForm.controls['emailInput'].dirty &&
           loginForm.controls['emailInput'].errors?.['email']
         "
         >
