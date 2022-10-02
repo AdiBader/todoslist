@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
-
-import { Todo } from '../Todo';
+import { Todo } from '../../models/Todo';
 
 @Component({
   selector: 'app-todos-page',
@@ -11,6 +9,7 @@ import { Todo } from '../Todo';
 })
 export class TodosPageComponent implements OnInit {
   todos: Todo[] = [];
+  displayTodos: Todo[];
   newTodo: string;
   num: number = 10;
   startIndex: number = 0;
@@ -33,13 +32,21 @@ export class TodosPageComponent implements OnInit {
         res.forEach((element: any) => {
           this.todos.push(element);
         })
+      )
+      .then(() =>
+        this.setDisplayTodos(this.startIndex, this.startIndex + this.num)
       );
   }
-  todosNum(number: number) {
-    this.num = number;
+  setDisplayTodos(start: number, end: number) {
+    this.displayTodos = this.todos.slice(start, end);
   }
 
-  displayTodos(dir: string) {
+  todosNum(number: number) {
+    this.num = number;
+    this.setDisplayTodos(this.startIndex, this.startIndex + this.num);
+  }
+
+  navigateTodos(dir: string) {
     if (dir === 'fw' && this.startIndex + this.num < this.todos.length) {
       this.startIndex += this.num;
     } else if (dir === 'rw' && this.startIndex - this.num >= 0) {
@@ -47,6 +54,8 @@ export class TodosPageComponent implements OnInit {
     } else if (dir === 'rw' && this.startIndex - this.num < 0) {
       this.startIndex = 0;
     }
+
+    this.setDisplayTodos(this.startIndex, this.startIndex + this.num);
   }
 
   saveTodo() {
@@ -54,8 +63,10 @@ export class TodosPageComponent implements OnInit {
       let todo = new Todo();
       todo.title = this.newTodo;
       todo.completed = true;
+      todo.id = this.todos.length + 1;
       this.todos.unshift(todo);
       this.newTodo = '';
+      this.setDisplayTodos(this.startIndex, this.startIndex + this.num);
     } else {
       alert('Please Enter todo');
     }
@@ -66,7 +77,8 @@ export class TodosPageComponent implements OnInit {
   }
 
   remove(id: number) {
-    this.todos = this.todos.filter((v, i) => i !== id);
+    this.todos = this.todos.filter((todo) => todo.id !== id);
+    this.setDisplayTodos(this.startIndex, this.startIndex + this.num);
   }
 
   ngOnInit(): void {}
