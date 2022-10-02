@@ -13,6 +13,7 @@ export class TodosPageComponent implements OnInit {
   todos: Todo[] = [];
   newTodo: string;
   num: number = 10;
+  startIndex: number = 0;
   loogedIn: boolean;
   userDisplay: string;
 
@@ -36,6 +37,16 @@ export class TodosPageComponent implements OnInit {
   }
   todosNum(number: number) {
     this.num = number;
+  }
+
+  displayTodos(dir: string) {
+    if (dir === 'fw' && this.startIndex + this.num < this.todos.length) {
+      this.startIndex += this.num;
+    } else if (dir === 'rw' && this.startIndex - this.num >= 0) {
+      this.startIndex -= this.num;
+    } else if (dir === 'rw' && this.startIndex - this.num < 0) {
+      this.startIndex = 0;
+    }
   }
 
   saveTodo() {

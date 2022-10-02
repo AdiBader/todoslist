@@ -29,10 +29,26 @@
         <button (click)="todosNum(10)" class="btn btn-secondary">10</button>
         <button (click)="todosNum(20)" class="btn btn-secondary">20</button>
       </div>
+      <div class="fwRw">
+        <button
+          (click)="displayTodos('rw')"
+          class="btn btn-secondary {{ startIndex <= 0 ? 'disabled' : '' }}"
+        >
+          <<
+        </button>
+        <button
+          (click)="displayTodos('fw')"
+          class="btn btn-secondary {{
+            startIndex + num >= todos.length ? 'disabled' : ''
+          }}"
+        >
+          >>
+        </button>
+      </div>
       <table class="table table-striped">
         <tbody>
           <tr *ngFor="let todo of todos; let i = index">
-            <td *ngIf="i < num">
+            <td *ngIf="i >= startIndex && i < startIndex + num">
               <table class="specialTable">
                 <tr class="specialTR">
                   <th scope="row">{{ i + 1 }}</th>
@@ -42,12 +58,20 @@
                   >
                     {{ todo.title }}
                   </td>
-                  <td
-                    class="remove"
-                    style="color: #555; font-weight: bold"
-                    (click)="remove(i)"
-                  >
-                    X
+
+                  <td>
+                    <table>
+                      <tr>
+                        <td
+                          *ngIf="!todo.completed"
+                          class="remove"
+                          style="color: red; font-weight: bold"
+                          (click)="remove(i)"
+                        >
+                          X
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
