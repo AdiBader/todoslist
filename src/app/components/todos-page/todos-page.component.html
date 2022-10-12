@@ -1,75 +1,64 @@
-<h2 style="text-align: center">{{ "Hello " + userDisplay + "!" }}</h2>
+<h2 style="text-align: center">
+  {{ "Hello " + todoService.userDisplay + "!" }}
+</h2>
 <br />
 <div class="container">
   <div class="row justify-content-md-center">
-    <div class="col col-lg-3">
+    <div class="col">
       <div class="input-group mb-3">
-        <input
+        <!-- <!-- <input
           type="text"
           class="form-control"
           placeholder="Enter Todo"
           aria-label="nter Todo"
           aria-describedby="button-addon2"
-          [(ngModel)]="newTodo"
-        />
+          [(ngModel)]="todoService.newTodo"
+        /> -->
 
         <button
-          class="btn btn-outline-secondary btn-primary"
+          class="btn btn-outline-secondary btn-primary addTodoBtn"
           style="color: white"
           type="button"
           id="button-addon2"
-          (click)="saveTodo()"
+          (click)="addTodoPage()"
         >
           Add Todo
         </button>
       </div>
-
-      <div class="todosNumber">
-        <button
-          (click)="todosNum(5)"
-          class="btn btn-secondary {{ num === 5 ? 'chosen' : '' }}"
-          title="Show 5 todos in page"
-        >
-          5
-        </button>
-        <button
-          (click)="todosNum(10)"
-          class="btn btn-secondary {{ num === 10 ? 'chosen' : '' }}"
-          title="Show 10 todos in page"
-        >
-          10
-        </button>
-        <button
-          (click)="todosNum(20)"
-          class="btn btn-secondary {{ num === 20 ? 'chosen' : '' }}"
-          title="Show 20 todos in page"
-        >
-          20
-        </button>
-      </div>
+      <p style="text-align: center">
+        Total: {{ todoService.todos.length }} Todos
+        <br />
+        Completed: {{ todoService.todosCompleted.length }} Todos
+      </p>
 
       <table class="table table-striped mainTable">
         <tbody>
-          <tr *ngFor="let todo of displayTodos; let i = index">
+          <tr *ngFor="let todo of todoService.displayTodos; let i = index">
             <td>
               <table class="specialTable">
                 <tr class="specialTR">
-                  <th scope="row">{{ startIndex + i + 1 }}</th>
+                  <td scope="row">{{ todoService.startIndex + i + 1 }}</td>
                   <td
-                    class=" todoTitle {{ !todo.completed ? 'done' : '' }}"
-                    (click)="done(startIndex + i)"
+                    class=" todoTitle {{ todo.completed ? 'done' : '' }}"
+                    (click)="todoService.done(todo)"
                   >
                     {{ todo.title }}
                   </td>
+                  <td
+                    class="date {{ todo.completed ? 'done' : '' }}"
+                    (click)="todoService.done(todo)"
+                  >
+                    {{ todo.date | date: "d/LL/yy" }}
+                  </td>
 
-                  <td>
+                  <td width="15">
                     <table>
                       <tr>
                         <td
-                          *ngIf="!todo.completed"
+                          *ngIf="todo.completed"
                           class="remove"
                           style="color: red; font-weight: bold"
-                          (click)="remove(todo.id)"
+                          (click)="todoService.remove(todo)"
                         >
                           X
                         </td>
@@ -82,24 +71,77 @@
           </tr>
         </tbody>
       </table>
-
-      <div class="fwRw">
-        <button
-          (click)="navigateTodos('rw')"
-          class="btn btn-secondary {{ startIndex <= 0 ? 'disabled' : '' }}"
-          title="Show previous {{ num }} todos"
-        >
-          <<
-        </button>
-        <button
-          (click)="navigateTodos('fw')"
-          class="btn btn-secondary {{
-            startIndex + num >= todos.length ? 'disabled' : ''
-          }}"
-          title="Show next {{ num }} todos"
-        >
-          >>
-        </button>
+      <div class="todosDisplayOptions">
+        <div class="container">
+          <div class="todoDone">
+            <div class="todoDoneBtn" (click)="todoService.todoDone()">
+              <fa-icon
+                *ngIf="todoService.displayTodoDone"
+                [icon]="eyeSlashIcon"
+                title="Hide completed todos"
+              ></fa-icon>
+              <fa-icon
+                *ngIf="!todoService.displayTodoDone"
+                [icon]="eyeIcon"
+                title="Show completed todos"
+              ></fa-icon>
+            </div>
+          </div>
+          <div class="todosPagination">
+            <div class="todosNumber">
+              <button
+                (click)="todoService.todosNum(5)"
+                class="btn btn-secondary {{
+                  todoService.num === 5 ? 'chosen' : ''
+                }}"
+                title="Show 5 todos in page"
+              >
+                5
+              </button>
+              <button
+                (click)="todoService.todosNum(10)"
+                class="btn btn-secondary {{
+                  todoService.num === 10 ? 'chosen' : ''
+                }}"
+                title="Show 10 todos in page"
+              >
+                10
+              </button>
+              <button
+                (click)="todoService.todosNum(20)"
+                class="btn btn-secondary {{
+                  todoService.num === 20 ? 'chosen' : ''
+                }}"
+                title="Show 20 todos in page"
+              >
+                20
+              </button>
+            </div>
+            <div class="fwRw">
+              <button
+                (click)="todoService.navigateTodos('rw')"
+                class="btn btn-secondary {{
+                  todoService.startIndex <= 0 ? 'disabled' : ''
+                }}"
+                title="Show previous {{ todoService.num }} todos"
+              >
+                <<
+              </button>
+              <button
+                (click)="todoService.navigateTodos('fw')"
+                class="btn btn-secondary {{
+                  todoService.startIndex + todoService.num >=
+                  todoService.todos.length
+                    ? 'disabled'
+                    : ''
+                }}"
+                title="Show next {{ todoService.num }} todos"
+              >
+                >>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

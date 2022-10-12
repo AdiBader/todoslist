@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Users } from '../../models/Users';
 import { Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-  FormArray,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { TodoService } from 'src/app/services/todo.service';
 
 @Component({
   selector: 'app-login',
@@ -16,14 +11,12 @@ import {
 })
 export class LoginComponent implements OnInit {
   users: Users[] = [];
-  loogedIn: boolean;
-  checkError: boolean;
+
+  checkError: boolean = false;
+  checkCredentials: boolean = false;
   loginForm: FormGroup;
-  userDisplay: string;
 
-  constructor(private route: Router) {
-    this.loogedIn = false;
-
+  constructor(private route: Router, public todoService: TodoService) {
     this.loginForm = new FormGroup({
       emailInput: new FormControl('', [Validators.required, Validators.email]),
       usernameInput: new FormControl('', [
@@ -31,42 +24,42 @@ export class LoginComponent implements OnInit {
         Validators.minLength(2),
       ]),
     });
-    console.log(this.loginForm);
   }
 
   ngOnInit(): void {}
 
   loginUser() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((data) => data.json())
-      .then((res) => {
-        res.forEach((element: any) => {
-          this.users.push(element);
-        });
-        const userName = String(
-          this.loginForm.value.usernameInput
-        ).toLowerCase();
-        const eMail = String(this.loginForm.value.emailInput).toLowerCase();
-        this.users.forEach((user: any) => {
-          if (
-            userName === user.username.toLowerCase() &&
-            eMail === user.email.toLowerCase()
-          ) {
-            console.log('welcome');
-            this.loogedIn = true;
-            this.userDisplay = user.username;
+    if (
+      !this.loginForm.controls['emailInput'].errors &&
+      !this.loginForm.controls['usernameInput'].errors
+    ) {
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then((data) => data.json())
+        .then((res) => {
+          res.forEach((element: any) => {
+            this.users.push(element);
+          });
+          const userName = String(
+            this.loginForm.value.usernameInput
+          ).toLowerCase();
+          const eMail = String(this.loginForm.value.emailInput).toLowerCase();
+          this.users.forEach((user: any) => {
+            if (
+              userName === user.username.toLowerCase() &&
+              eMail === user.email.toLowerCase()
+            ) {
+              console.log('welcome');
+              this.todoService.loogedIn = true;
+              this.todoService.userDisplay = user.username;
 
-            this.route.navigate(['/todos-page'], {
-              state: { data: this.loogedIn, userdisplay: this.userDisplay },
-            });
-          } else {
-            this.checkError = true;
-          }
+              this.route.navigate(['/todos-page']);
+            } else {
+              this.checkCredentials = true;
+            }
+          });
         });
-      });
-
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+    } else {
+      this.checkError = true;
     }
   }
 }

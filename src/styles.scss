@@ -18,18 +18,6 @@ tr.specialTR * {
 .specialTable {
   width: 100%;
 }
-.todosNumber {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  width: 70%;
-  margin: 20px auto;
-}
-.todosNumber button {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-}
 
 .input span {
   color: red;
@@ -49,4 +37,48 @@ input.submitButton:hover {
 h2.login {
   display: block;
   text-align: center;
+}
+
+.submitButton:hover {
+  background-color: #334488;
+}
+
+.fError .form-control {
+  color: #212529;
+  background-color: #fff;
+  border-color: #ff0000;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25);
+}
+form .input {
+  position: relative;
+}
+.fSuccess:after {
+  content: "\f00c";
+  font: var(--fa-font-solid);
+  position: absolute;
+  right: 6px;
+  bottom: 10px;
+}
+.fError:after {
+  content: "\f071";
+  font: var(--fa-font-solid);
+  position: absolute;
+  right: 6px;
+  top: 34px;
+}
+.addTodoForm .fError:after,
+.addTodoForm .fSuccess:after {
+  content: "";
+}
+.fSuccess .form-control {
+  border-color: #86b7fe;
+  outline: 0;
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(134, 183, 254, 0.25);
+}
+.disabled,
+.disabled:hover {
+  background-color: #555;
+  pointer-events: none;
 }

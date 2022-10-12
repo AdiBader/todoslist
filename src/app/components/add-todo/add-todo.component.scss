@@ -1,0 +1,10 @@
+.todoInputDiv {
+  width: 100%;
+  display: grid;
+  margin-bottom: 30px;
+}
+.disabled,
+.disabled:hover {
+  background-color: #555;
+  pointer-events: none;
+}

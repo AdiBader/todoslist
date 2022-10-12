@@ -1,8 +1,15 @@
 .remove,
 .todoTitle {
   cursor: pointer;
+  width: 64%;
+  word-break: break-word;
 }
-.fwRw {
+
+.date {
+  font-size: 12px;
+  line-height: 1.4rem;
+}
+.todosDisplayOptions {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -16,14 +23,41 @@
   box-shadow: 0 0 8px 0px rgb(0 0 0 / 30%);
   justify-content: center;
 }
+.todosDisplayOptions .container {
+  display: flex;
+  justify-content: space-between;
+}
+.todoDoneBtn {
+  font-size: 24px;
+}
+.fwRw {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
+  gap: 1rem;
+}
+.todosNumber {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto 20px;
+  gap: 1rem;
+}
+.todosNumber button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.addTodoBtn {
+  width: 100%;
+}
 .fwRw button {
   font-size: 0.8em;
   padding: 4px;
   line-height: 1em;
-  margin: 0 10px;
 }
 .mainTable {
-  margin-bottom: 70px;
+  margin-bottom: 150px;
 }
 
 .chosen {
@@ -31,4 +65,10 @@
 }
 .container {
   position: relative;
+}
+.todosDisplayOptions {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: revert;
+  align-items: center;
 }

@@ -1,1 +1,104 @@
-<p>add-todo works!</p>
+<h2 style="text-align: center">Add Todo</h2>
+<br />
+<div class="container">
+  <form
+    class="row justify-content-md-center addTodoForm"
+    [formGroup]="addTodoForm"
+    (ngSubmit)="saveTodo()"
+    novalidate
+  >
+    <div class="col col-lg-3">
+      <div class="mb-3">
+        <div
+          class="dateDiv todoInputDiv input {{
+            addTodoForm.controls['dateInput'].touched &&
+            addTodoForm.controls['dateInput'].invalid
+              ? 'fError'
+              : ''
+          }} {{
+            addTodoForm.controls['dateInput'].dirty &&
+            !addTodoForm.controls['dateInput'].invalid
+              ? 'fSuccess'
+              : ''
+          }}"
+        >
+          <label for="start"> Enter the Date: </label>
+
+          <input
+            type="date"
+            name="dateInput"
+            placeholder="dd-mm-yyyy"
+            class="form-control"
+            min="1997-01-01"
+            max="2030-12-31"
+            formControlName="dateInput"
+          />
+          <small
+            class="form-text text-muted"
+            *ngIf="
+          (addTodoForm.controls['dateInput'].dirty &&
+          addTodoForm.controls['dateInput'].errors?.['required']) || (checkError && addTodoForm.controls['dateInput'].errors?.['required'])
+        "
+          >
+            Please enter a valid date.!
+          </small>
+        </div>
+        <div
+          class="todoInputDiv input {{
+            addTodoForm.controls['todoInput'].dirty &&
+            addTodoForm.controls['todoInput'].errors
+              ? 'fError'
+              : ''
+          }} {{
+            addTodoForm.controls['todoInput'].dirty &&
+            !addTodoForm.controls['todoInput'].errors
+              ? 'fSuccess'
+              : ''
+          }}"
+        >
+          <input
+            type="text"
+            name="todoInput"
+            class="form-control"
+            placeholder="Enter Todo"
+            aria-label="nter Todo"
+            aria-describedby="button-addon2"
+            formControlName="todoInput"
+          />
+          <small
+            class="form-text text-muted"
+            *ngIf="
+          (addTodoForm.controls['todoInput'].dirty &&
+          addTodoForm.controls['todoInput'].errors?.['required']) || (checkError && addTodoForm.controls['todoInput'].errors?.['required'])
+        "
+          >
+            Please enter todo.!
+          </small>
+          <small
+            class="form-text text-muted"
+            *ngIf="
+            (addTodoForm.controls['todoInput'].dirty &&
+            addTodoForm.controls['todoInput']['errors']?.['minlength']?.['actualLength'] > 0) || (checkError && addTodoForm.controls['todoInput']['errors']?.['minlength']?.['actualLength'] > 0)
+          "
+          >
+            Todo must be more than 1 character.!
+          </small>
+        </div>
+        <div class="input">
+          <button
+            class="submitButton mb-1"
+            style="color: white"
+            type="submit"
+            id="button-addon2"
+            (click)="saveTodo()"
+          >
+            Add Todo
+          </button>
+        </div>
+        <span style="color: red" *ngIf="checkError"
+          >Ooops! something went wrong..</span
+        >
+      </div>
+    </div>
+  </form>
+</div>
