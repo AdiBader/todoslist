@@ -36,8 +36,8 @@
           <small
             class="form-text text-muted"
             *ngIf="
-          (addTodoForm.controls['dateInput'].dirty &&
-          addTodoForm.controls['dateInput'].errors?.['required']) || (checkError && addTodoForm.controls['dateInput'].errors?.['required'])
+          (addTodoForm.controls['dateInput'].touched &&
+          addTodoForm.controls['dateInput'].errors) || (checkError && addTodoForm.controls['dateInput'].errors?.['required'])
         "
           >
             Please enter a valid date.!
