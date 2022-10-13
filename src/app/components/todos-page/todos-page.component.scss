@@ -14,33 +14,33 @@
   flex-wrap: wrap;
   width: 100%;
   margin: 0 auto;
-  position: fixed;
-  bottom: 0;
+
   background-color: #fff;
-  padding: 20px;
-  left: 0;
-  right: 0;
-  box-shadow: 0 0 8px 0px rgb(0 0 0 / 30%);
-  justify-content: center;
+
+  justify-content: space-between;
 }
+
 .todosDisplayOptions .container {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 12px 0;
 }
 .todoDoneBtn {
   font-size: 24px;
+  cursor: pointer;
 }
 .fwRw {
   display: flex;
   flex-wrap: wrap;
-  justify-content: right;
+  justify-content: center;
   gap: 1rem;
 }
 .todosNumber {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 0 auto 20px;
+  justify-content: space-between;
   gap: 1rem;
 }
 .todosNumber button {
@@ -49,7 +49,8 @@
   border-radius: 50%;
 }
 .addTodoBtn {
-  width: 100%;
+  width: 100px;
+  height: 40px;
 }
 .fwRw button {
   font-size: 0.8em;
@@ -57,7 +58,7 @@
   line-height: 1em;
 }
 .mainTable {
-  margin-bottom: 150px;
+  margin-bottom: 30px;
 }
 
 .chosen {
@@ -66,12 +67,7 @@
 .container {
   position: relative;
 }
-.todosDisplayOptions {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: revert;
-  align-items: center;
-}
+
 td.newTodo {
   border: 1px solid green;
 }
@@ -81,4 +77,38 @@ td.new span {
   padding: 1%;
   text-align: center;
   line-height: 1.2em;
+}
+.done {
+  text-decoration: line-through;
+}
+tr.specialTR {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+}
+tr.specialTR * {
+  display: inline-grid;
+}
+.specialTable {
+  width: 100%;
+}
+.todosPagination {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .todosNumber button {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 15px;
+  }
+  .todosNumber {
+    gap: 0.6rem;
+  }
 }

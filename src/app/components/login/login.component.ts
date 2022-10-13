@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
               eMail === user.email.toLowerCase()
             ) {
               console.log('welcome');
-              this.todoService.loogedIn = true;
+              this.todoService.logedIn = true;
               this.todoService.userDisplay = user.username;
 
               this.route.navigate(['/todos-page']);

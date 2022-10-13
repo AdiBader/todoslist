@@ -3,22 +3,6 @@
 /* Importing Bootstrap SCSS file. */
 @import "node_modules/bootstrap/scss/bootstrap";
 
-.done {
-  text-decoration: line-through;
-}
-tr.specialTR {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  text-align: center;
-}
-tr.specialTR * {
-  display: inline-grid;
-}
-.specialTable {
-  width: 100%;
-}
-
 .input span {
   color: red;
 }

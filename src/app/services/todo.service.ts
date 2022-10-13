@@ -15,11 +15,10 @@ export class TodoService {
   newTodoDate: Date = new Date();
   num: number = 10;
   startIndex: number = 0;
-  loogedIn: boolean;
+  logedIn: boolean = false;
   userDisplay: string;
 
   constructor(private route: Router) {
-    // this.loogedIn = false;
     this.setTodos();
   }
 
@@ -51,47 +50,10 @@ export class TodoService {
     }
   }
 
-  todosNum(number: number) {
-    this.num = number;
-    this.setDisplayTodos();
-  }
-
   todoDone() {
     this.displayTodoDone = !this.displayTodoDone;
     if (this.displayTodoDone === false) this.startIndex = 0;
 
-    this.setDisplayTodos();
-  }
-
-  navigateTodos(dir: string) {
-    if (
-      dir === 'fw' &&
-      this.displayTodoDone === true &&
-      this.startIndex + this.num < this.todos.length
-    ) {
-      this.startIndex += this.num;
-    } else if (
-      dir === 'fw' &&
-      this.displayTodoDone === false &&
-      this.startIndex + this.num < this.todosUnCompleted.length
-    ) {
-      this.startIndex += this.num;
-    } else if (dir === 'rw' && this.startIndex - this.num >= 0) {
-      this.startIndex -= this.num;
-    } else if (dir === 'rw' && this.startIndex - this.num < 0) {
-      this.startIndex = 0;
-    }
-
-    this.setDisplayTodos();
-  }
-
-  done(todo: Todo) {
-    todo.completed = !todo.completed;
-    this.setDisplayTodos();
-  }
-
-  remove(todoToRemove: Todo) {
-    this.todos = this.todos.filter((todo) => todo !== todoToRemove);
     this.setDisplayTodos();
   }
 }

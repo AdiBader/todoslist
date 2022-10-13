@@ -10,12 +10,11 @@ import { Todo } from 'src/app/models/Todo';
   styleUrls: ['./add-todo.component.scss'],
 })
 export class AddTodoComponent implements OnInit {
-  loogedIn: boolean;
   checkError: boolean;
   addTodoForm: FormGroup;
 
   constructor(private route: Router, public todoService: TodoService) {
-    if (todoService.loogedIn !== true) {
+    if (todoService.logedIn !== true) {
       this.route.navigate(['/login']);
     }
     this.addTodoForm = new FormGroup({
