@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
               userName === user.username.toLowerCase() &&
               eMail === user.email.toLowerCase()
             ) {
-              console.log('welcome');
               this.todoService.logedIn = true;
               this.todoService.userDisplay = user.username;
 

@@ -39,10 +39,11 @@ export class AddTodoComponent implements OnInit {
       todo.date = this.addTodoForm.value.dateInput;
       todo.new = true;
       this.todoService.todos[0].new = false;
-      console.log(todo.date);
+
       this.todoService.todos.unshift(todo);
       this.addTodoForm.value.todoInput = '';
       this.addTodoForm.value.dateInput = new Date();
+      this.todoService.startIndex = 0;
       this.todoService.setDisplayTodos();
       this.route.navigate(['/todos-page']);
     } else {
