@@ -38,6 +38,8 @@ export class AddTodoComponent implements OnInit {
       todo.completed = false;
       todo.id = this.todoService.todos.length + 1;
       todo.date = this.addTodoForm.value.dateInput;
+      todo.new = true;
+      this.todoService.todos[0].new = false;
       console.log(todo.date);
       this.todoService.todos.unshift(todo);
       this.addTodoForm.value.todoInput = '';

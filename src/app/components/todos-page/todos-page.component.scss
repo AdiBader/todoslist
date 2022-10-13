@@ -72,3 +72,13 @@
   align-content: revert;
   align-items: center;
 }
+td.newTodo {
+  border: 1px solid green;
+}
+td.new span {
+  font-size: 10px;
+  color: green;
+  padding: 1%;
+  text-align: center;
+  line-height: 1.2em;
+}

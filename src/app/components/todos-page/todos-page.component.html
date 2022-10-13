@@ -34,10 +34,20 @@
       <table class="table table-striped mainTable">
         <tbody>
           <tr *ngFor="let todo of todoService.displayTodos; let i = index">
-            <td>
+            <td class="{{ todo.new ? 'newTodo' : '' }}">
               <table class="specialTable">
                 <tr class="specialTR">
                   <td scope="row">{{ todoService.startIndex + i + 1 }}</td>
+
+                  <td width="21">
+                    <table>
+                      <tr>
+                        <td class="new" *ngIf="todo.new">
+                          <span>new todo</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
                   <td
                     class=" todoTitle {{ todo.completed ? 'done' : '' }}"
                     (click)="todoService.done(todo)"
