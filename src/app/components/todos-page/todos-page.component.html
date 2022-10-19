@@ -97,56 +97,60 @@
         </div>
       </div>
       <!---Todos table --->
-      <table class="table table-striped mainTable">
-        <tbody>
-          <tr *ngFor="let todo of todoService.displayTodos; let i = index">
-            <td class="{{ todo.new ? 'newTodo' : '' }}">
-              <table class="specialTable">
-                <tr class="specialTR">
-                  <td scope="row">{{ todoService.startIndex + i + 1 }}</td>
+      <div class="table table-striped mainTable">
+        <div class="specialTable">
+          <div
+            *ngFor="let todo of todoService.displayTodos; let i = index"
+            class="todoRow {{ todo.completed ? 'doneTodoDiv' : '' }}"
+            @fade
+          >
+            <div class="{{ todo.new ? 'newTodo' : '' }}">
+              <div class="specialTable">
+                <div class="specialTR">
+                  <div scope="row">{{ todoService.startIndex + i + 1 }}</div>
 
-                  <td width="21">
-                    <table>
-                      <tr>
-                        <td class="new" *ngIf="todo.new">
+                  <div width="21">
+                    <div>
+                      <div>
+                        <div class="new" *ngIf="todo.new">
                           <span>new todo</span>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                  <td
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
                     class=" todoTitle {{ todo.completed ? 'done' : '' }}"
                     (click)="this.done(todo)"
                   >
                     {{ todo.title }}
-                  </td>
-                  <td
+                  </div>
+                  <div
                     class="date {{ todo.completed ? 'done' : '' }}"
                     (click)="this.done(todo)"
                   >
                     {{ todo.date | date: "d/LL/yy" }}
-                  </td>
+                  </div>
 
-                  <td width="15">
-                    <table>
-                      <tr>
-                        <td
+                  <div width="15">
+                    <div>
+                      <div>
+                        <div
                           *ngIf="todo.completed"
                           class="remove"
                           style="color: #333; font-weight: bold"
                           (click)="this.remove(todo)"
                         >
                           <fa-icon [icon]="trashCan" title="Delete"></fa-icon>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
