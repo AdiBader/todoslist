@@ -16,26 +16,12 @@ import {
   query,
   group,
 } from '@angular/animations';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-todos-page',
   templateUrl: './todos-page.component.html',
   styleUrls: ['./todos-page.component.scss'],
-  animations: [
-    trigger('fade', [
-      // transition(':enter', [
-      //   style({ opacity: 0, height: 0, fontSize: 0 }),
-      //   animate(200, style({ opacity: 1, height: 'auto', fontSize: 'auto' })),
-      // ]),
-      transition(':leave', [
-        style({ opacity: 1, height: 'auto' }),
-        animate(
-          '100ms ease-out',
-          style({ opacity: 0, height: 0, fontSize: 0, boxShadow: 'none' })
-        ),
-      ]),
-    ]),
-  ],
 })
 export class TodosPageComponent implements OnInit {
   eyeIcon = faEye;
@@ -92,12 +78,16 @@ export class TodosPageComponent implements OnInit {
     this.todoService.setDisplayTodos();
   }
 
-  remove(todoToRemove: Todo) {
-    this.todoService.todos = this.todoService.todos.filter(
-      (todo) => todo !== todoToRemove
-    );
+  remove(index: number) {
+    this.todoService.todos.splice(index, 1);
+
     this.todoService.setDisplayTodos();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.todoService.firstBuild) {
+      this.todoService.setTodos();
+      this.todoService.firstBuild = false;
+    }
+  }
 }

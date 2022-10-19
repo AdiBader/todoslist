@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
         ) {
           this.todoService.logedIn = true;
           this.todoService.userDisplay = user.username;
+          this.todoService.userID = user.id;
 
           this.route.navigate(['/todos-page']);
         } else {

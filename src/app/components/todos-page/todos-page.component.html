@@ -102,7 +102,6 @@
           <div
             *ngFor="let todo of todoService.displayTodos; let i = index"
             class="todoRow {{ todo.completed ? 'doneTodoDiv' : '' }}"
-            @fade
           >
             <div class="{{ todo.new ? 'newTodo' : '' }}">
               <div class="specialTable">
@@ -138,7 +137,7 @@
                           *ngIf="todo.completed"
                           class="remove"
                           style="color: #333; font-weight: bold"
-                          (click)="this.remove(todo)"
+                          (click)="this.remove(todoService.startIndex + i)"
                         >
                           <fa-icon [icon]="trashCan" title="Delete"></fa-icon>
                         </div>

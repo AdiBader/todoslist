@@ -17,10 +17,10 @@ export class TodoService {
   startIndex: number = 0;
   logedIn: boolean = false;
   userDisplay: string;
+  userID: number;
+  firstBuild: boolean = true;
 
-  constructor(private route: Router) {
-    this.setTodos();
-  }
+  constructor(private route: Router) {}
 
   setTodos(): void {
     fetch('https://jsonplaceholder.typicode.com/todos')
@@ -30,7 +30,7 @@ export class TodoService {
   }
   pushTodos(todos: any) {
     todos.forEach((element: any) => {
-      this.todos.push(element);
+      this.userID === element.userId && this.todos.push(element);
     });
   }
   setDisplayTodos() {
