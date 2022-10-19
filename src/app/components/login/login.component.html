@@ -91,14 +91,7 @@
         </small>
       </div>
       <div class="input">
-        <button
-          type="submit"
-          value="Login"
-          (click)="loginUser()"
-          class="submitButton"
-        >
-          Log in
-        </button>
+        <button type="submit" value="Login" class="submitButton">Log in</button>
       </div>
       <span style="color: red" *ngIf="checkCredentials">Wrong credentials</span>
     </div>

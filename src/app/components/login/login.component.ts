@@ -24,6 +24,14 @@ export class LoginComponent implements OnInit {
         Validators.minLength(2),
       ]),
     });
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((data) => data.json())
+      .then((res) => {
+        res.forEach((element: any) => {
+          this.users.push(element);
+        });
+      });
   }
 
   ngOnInit(): void {}
@@ -33,30 +41,21 @@ export class LoginComponent implements OnInit {
       !this.loginForm.controls['emailInput'].errors &&
       !this.loginForm.controls['usernameInput'].errors
     ) {
-      fetch('https://jsonplaceholder.typicode.com/users')
-        .then((data) => data.json())
-        .then((res) => {
-          res.forEach((element: any) => {
-            this.users.push(element);
-          });
-          const userName = String(
-            this.loginForm.value.usernameInput
-          ).toLowerCase();
-          const eMail = String(this.loginForm.value.emailInput).toLowerCase();
-          this.users.forEach((user: any) => {
-            if (
-              userName === user.username.toLowerCase() &&
-              eMail === user.email.toLowerCase()
-            ) {
-              this.todoService.logedIn = true;
-              this.todoService.userDisplay = user.username;
+      const userName = String(this.loginForm.value.usernameInput).toLowerCase();
+      const eMail = String(this.loginForm.value.emailInput).toLowerCase();
+      this.users.forEach((user: any) => {
+        if (
+          userName === user.username.toLowerCase() &&
+          eMail === user.email.toLowerCase()
+        ) {
+          this.todoService.logedIn = true;
+          this.todoService.userDisplay = user.username;
 
-              this.route.navigate(['/todos-page']);
-            } else {
-              this.checkCredentials = true;
-            }
-          });
-        });
+          this.route.navigate(['/todos-page']);
+        } else {
+          this.checkCredentials = true;
+        }
+      });
     } else {
       this.checkError = true;
     }

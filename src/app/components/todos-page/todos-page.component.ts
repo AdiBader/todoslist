@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TodoService } from 'src/app/services/todo.service';
 import { Todo } from '../../models/Todo';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEye,
+  faEyeSlash,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-todos-page',
@@ -10,19 +14,11 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./todos-page.component.scss'],
 })
 export class TodosPageComponent implements OnInit {
-  // todos: Todo[] = [];
-  // displayTodos: Todo[];
-  // newTodo: string;
-  // num: number = 10;
-  // startIndex: number = 0;
-  // loogedIn: boolean;
-  // userDisplay: string;
   eyeIcon = faEye;
   eyeSlashIcon = faEyeSlash;
+  trashCan = faTrashCan;
 
   constructor(private route: Router, public todoService: TodoService) {
-    // this.userDisplay = history.state.userdisplay;
-    // this.loogedIn = history.state.data;
     if (todoService.logedIn !== true) {
       this.route.navigate(['/login']);
     }

@@ -25,12 +25,13 @@ export class TodoService {
   setTodos(): void {
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then((data) => data.json())
-      .then((res) =>
-        res.forEach((element: any) => {
-          this.todos.push(element);
-        })
-      )
+      .then((res) => this.pushTodos(res))
       .then(() => this.setDisplayTodos());
+  }
+  pushTodos(todos: any) {
+    todos.forEach((element: any) => {
+      this.todos.push(element);
+    });
   }
   setDisplayTodos() {
     this.todosCompleted = this.todos.filter((todo) => todo.completed === true);
