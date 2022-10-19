@@ -28,7 +28,7 @@ import {
       //   animate(200, style({ opacity: 1, height: 'auto', fontSize: 'auto' })),
       // ]),
       transition(':leave', [
-        style({ opacity: 1, height: 'auto', fontSize: 'auto' }),
+        style({ opacity: 1, height: 'auto' }),
         animate(
           '100ms ease-out',
           style({ opacity: 0, height: 0, fontSize: 0, boxShadow: 'none' })
